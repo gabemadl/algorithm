@@ -33,9 +33,23 @@ template<class item_type> class LinkedList {
   const LinkedListNode<item_type>* end() const;
   /** Checks whether the linked list is empty. */
   const bool empty() const;
+  /** Deletes a node from the linked list. */
+  void erase(LinkedListNode<item_type>* node_ptr);
+  /** Finds the first occurrence of the item in the linked list. */
+  LinkedListNode<item_type>* find(item_type item);
+  /** Finds the first occurrence of the item in the linked list. */
+  const LinkedListNode<item_type>* find(item_type item) const;
+  /** Finds the first occurrence of the item in the linked list, starting with
+   * the begin element. */
+  LinkedListNode<item_type>* find(item_type item,
+      LinkedListNode<item_type>* begin);
+  /** Finds the first occurrence of the item in the linked list, starting with
+   * the begin element. */
+  const LinkedListNode<item_type>* find(item_type item,
+      LinkedListNode<item_type>* begin) const;
   /** Insert a linked list node at the end of the list. */
   void push_back(item_type item);
-  /** Returns the size of the linkedlist. */
+  /** Returns the size of the linked list. */
   const unsigned int size() const;
  protected:
   /** Pointer to the last node of the linked list. */
@@ -44,6 +58,7 @@ template<class item_type> class LinkedList {
   LinkedListNode<item_type>* _root_ptr;
   /** The size of the linked list. */
   unsigned int _size;
+  friend class TestLinkedList;
 };
 
 } // namespace

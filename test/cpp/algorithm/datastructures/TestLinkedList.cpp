@@ -7,6 +7,7 @@
  * Copyright (c) 2020 Gabor Madl, All Rights Reserved.
  */
 
+#include <assert.h>
 #include "TestLinkedList.h"
 
 namespace algorithm {
@@ -22,7 +23,7 @@ void TestLinkedList::initarray() {
   // set the seed
   srand((unsigned)time(NULL));
   for (int i = 0; i < ARRAYSIZE; ++i) {
-    _array[i] = rand() % 20;
+    _array[i] = rand() % 100;
     std::cout << _array[i] << " ";
   }
   std::cout << std::endl;
@@ -33,8 +34,10 @@ bool TestLinkedList::runtests() {
   bool pass = true;
   std::cout << "Creating new linked list." << std::endl;
   LinkedList<int> linkedlist;
-  std::cout << "Linked list empty check: " << linkedlist.empty() << std::endl;
-  std::cout << "Linked list size check: " << linkedlist.size() << std::endl;
+  assert(linkedlist.empty());
+  assert(0 == linkedlist.size());
+  assert(NULL == linkedlist._root_ptr);
+  assert(NULL == linkedlist._last_ptr);
   if (!linkedlist.empty()) pass = false;
   std::cout << "Initializing array." << std::endl;
   initarray();
@@ -42,8 +45,7 @@ bool TestLinkedList::runtests() {
   for (int i = 0; i < ARRAYSIZE; ++i) {
     linkedlist.push_back(_array[i]);
   }
-  std::cout << "Linked list empty check: " << linkedlist.empty() << std::endl;
-  std::cout << "Linked list size check: " << linkedlist.size() << std::endl;
+  assert(!linkedlist.empty());
   if (ARRAYSIZE != linkedlist.size()) pass = false;
   std::cout << "Iterating through linked list." << std::endl;
   LinkedListNode<int>* ptr;
@@ -56,10 +58,68 @@ bool TestLinkedList::runtests() {
     std::cout << ptr->item() << " ";
   }
   std::cout << std::endl;
+  std::cout << "Erasing element " << _array[ARRAYSIZE/2] << " from the list."
+      << std::endl;
+  LinkedListNode<int>* node_ptr = linkedlist.find(_array[ARRAYSIZE/2]);
+  assert(node_ptr);
+  linkedlist.erase(node_ptr);
+  std::cout << "Iterating through linked list." << std::endl;
+  for (ptr = linkedlist.begin(); ptr != NULL; ptr = ptr->iter_next()) {
+    std::cout << ptr->item() << " ";
+  }
+  std::cout << std::endl;
+  std::cout << "Erasing first element from the list." << std::endl;
+  node_ptr = linkedlist.find(_array[0]);
+  assert(node_ptr);
+  linkedlist.erase(node_ptr);
+  std::cout << "Iterating through linked list." << std::endl;
+  for (ptr = linkedlist.begin(); ptr != NULL; ptr = ptr->iter_next()) {
+    std::cout << ptr->item() << " ";
+  }
+  std::cout << std::endl;
+  std::cout << "Erasing last element from the list." << std::endl;
+  node_ptr = linkedlist.find(_array[ARRAYSIZE-1]);
+  assert(node_ptr);
+  linkedlist.erase(node_ptr);
+  std::cout << "Iterating through linked list backwards." << std::endl;
+  for (ptr = linkedlist.end(); ptr != NULL; ptr = ptr->iter_previous()) {
+    std::cout << ptr->item() << " ";
+  }
+  std::cout << std::endl;
   std::cout << "Clearing linked list." << std::endl;
   linkedlist.clear();
-  std::cout << "Linked list empty check: " << linkedlist.empty() << std::endl;
-  std::cout << "Linked list size check: " << linkedlist.size() << std::endl;
+  assert(linkedlist.empty());
+  assert(0 == linkedlist.size());
+  assert(NULL == linkedlist._root_ptr);
+  assert(NULL == linkedlist._last_ptr);
+  std::cout << "Add single element to list." << std::endl;
+  linkedlist.push_back(_array[0]);
+  if (1 != linkedlist.size()) pass = false;
+  assert(linkedlist._root_ptr);
+  assert(linkedlist._last_ptr);
+  node_ptr = linkedlist.find(_array[0]);
+  assert(node_ptr);
+  std::cout << "Erasing element from list." << std::endl;
+  linkedlist.erase(node_ptr);
+  assert(linkedlist.empty());
+  assert(0 == linkedlist.size());
+  assert(NULL == linkedlist._root_ptr);
+  assert(NULL == linkedlist._last_ptr);
+  std::cout << "Add two elements to list." << std::endl;
+  linkedlist.push_back(_array[0]);
+  linkedlist.push_back(_array[1]);
+  std::cout << linkedlist._root_ptr->item() << " " <<
+      linkedlist._last_ptr->item() << std::endl;
+  assert(*linkedlist._root_ptr != *linkedlist._last_ptr);
+  node_ptr = linkedlist.find(_array[0]);
+  assert(*node_ptr == *linkedlist._root_ptr);
+  node_ptr = linkedlist.find(_array[1], node_ptr->iter_next());
+  assert(*node_ptr == *linkedlist._last_ptr);
+  std::cout << "Erasing first element from list." << std::endl;
+  node_ptr = linkedlist.find(_array[0]);
+  linkedlist.erase(node_ptr);
+  assert(*linkedlist._root_ptr != *node_ptr);
+  assert(*linkedlist._root_ptr == *linkedlist._last_ptr);
   if (pass) {
     std::cout << "All linked list tests pass." << std::endl;
   } else {

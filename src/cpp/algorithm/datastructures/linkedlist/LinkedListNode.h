@@ -23,6 +23,10 @@ template<class item_type> class LinkedListNode {
   LinkedListNode(LinkedListNode<item_type> &node);
   /** Destructor. */
   virtual ~LinkedListNode();
+  /** Finds the first occurrence of the item in the linked list. */
+  LinkedListNode<item_type>* find(item_type item);
+  /** Finds the first occurrence of the item in the linked list. */
+  const LinkedListNode<item_type>* find(item_type item) const;
   /** Returns the item of the node. */
   item_type item();
   /** Returns the item of the node. */
@@ -41,8 +45,12 @@ template<class item_type> class LinkedListNode {
   void left(LinkedListNode<item_type>* left_ptr);
   /** Sets the pointer pointing to the next node in the linked list. */
   void right(LinkedListNode<item_type>* right_ptr);
-  /** Assignment operator */
-  LinkedListNode <item_type>& operator= (LinkedListNode <item_type>& node);
+  /** Assignment operator. */
+  LinkedListNode<item_type>& operator=(LinkedListNode<item_type>& node);
+  /** Equivalence operator. */
+  bool operator==(const LinkedListNode<item_type>& node);
+  /** Equivalence operator. */
+  bool operator!=(const LinkedListNode<item_type>& node);
  protected:
   /** The item stored in the node. */
   item_type _item;

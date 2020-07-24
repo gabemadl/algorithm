@@ -30,10 +30,38 @@ template<class item_type> LinkedListNode<item_type>::LinkedListNode(
 /** Destructor. */
 template<class item_type> LinkedListNode<item_type>::~LinkedListNode() {
   // Erasing from left to right.
-  if (NULL != _right_ptr) {
+  if (_right_ptr) {
     delete _right_ptr;
   }
   // Potential memory leak if item_type is pointer.
+}
+
+/** Finds the first occurrence of the item in the linked list. */
+template<class item_type> LinkedListNode<item_type>*
+    LinkedListNode<item_type>::find(item_type item) {
+  LinkedListNode<item_type>* node_ptr = NULL;
+  if (_item == item) {
+    node_ptr = this;
+  } else {
+    if (_right_ptr) {
+      node_ptr = _right_ptr->find(item);
+    }
+  }
+  return node_ptr;
+}
+
+/** Finds the first occurrence of the item in the linked list. */
+template<class item_type> const LinkedListNode<item_type>*
+    LinkedListNode<item_type>::find(item_type item) const {
+  const LinkedListNode<item_type>* node_ptr = NULL;
+  if (_item == item) {
+    node_ptr = this;
+  } else {
+    if (_right_ptr) {
+      node_ptr = _right_ptr->find(item);
+    }
+  }
+  return node_ptr;
 }
 
 /** Returns the item of the node. */
@@ -93,10 +121,24 @@ template<class item_type> void
 /** Assignment operator */
 template<class item_type> LinkedListNode<item_type>&
     LinkedListNode<item_type>::operator=(LinkedListNode <item_type>& node) {
-  _item = node.item();
+  _item = node._item;
   // Potential memory leak.
-  _left_ptr = node.iter_previous();
-  _right_ptr = node.iter_next();
+  _left_ptr = node._left_ptr;
+  _right_ptr = node._right_ptr;
+}
+
+/** Equivalence operator. */
+template<class item_type> bool LinkedListNode<item_type>::operator==(
+    const LinkedListNode<item_type>& node) {
+  return ((_item == node._item) && (_left_ptr == node._left_ptr) &&
+      (_right_ptr == node._right_ptr)) ? true : false;
+}
+
+/** Equivalence operator. */
+template<class item_type> bool LinkedListNode<item_type>::operator!=(
+    const LinkedListNode<item_type>& node) {
+  return ((_item == node._item) && (_left_ptr == node._left_ptr) &&
+      (_right_ptr == node._right_ptr)) ? false : true;
 }
 
 } // namespace

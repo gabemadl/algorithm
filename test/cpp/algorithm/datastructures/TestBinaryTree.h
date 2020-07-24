@@ -1,29 +1,29 @@
-/** @file TestLinkedList.h
+/** @file TestBinaryTree.h
  * @author Gabor Madl
  * @date Created 07/2020
- * @brief Tests for linked list template class.
+ * @brief Tests for binary tree template class.
  *
  * https://github.com/gabemadl/algorithm
  * Copyright (c) 2020 Gabor Madl, All Rights Reserved.
  */
 
-#ifndef ALGORITHM_TEST_LINKEDLIST
-#define ALGORITHM_TEST_LINKEDLIST
+#ifndef ALGORITHM_TEST_BINARYTREE
+#define ALGORITHM_TEST_BINARYTREE
 
 #define ARRAYSIZE 10
 
-#include "../../../../src/cpp/algorithm/datastructures/linkedlist/LinkedList.h"
-#include "../../../../src/cpp/algorithm/datastructures/linkedlist/LinkedList.cpp"
+#include "../../../../src/cpp/algorithm/datastructures/binarytree/BinaryTree.h"
+#include "../../../../src/cpp/algorithm/datastructures/binarytree/BinaryTree.cpp"
 
 namespace algorithm {
 
-/** TestLinkedList class. */
-class TestLinkedList {
+/** TestBinaryTree class. */
+class TestBinaryTree {
  public:
   /** Constructor. */
-  TestLinkedList();
+  TestBinaryTree();
   /** Destructor. */
-  virtual ~TestLinkedList();
+  virtual ~TestBinaryTree();
   /** Initializes a random _array. */
   void initarray();
   /** Run tests on the linked list. */
