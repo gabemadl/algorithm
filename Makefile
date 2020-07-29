@@ -17,9 +17,9 @@ TESTDATASTRUCTURES = $(TEST)/datastructures
 
 all: datastructures test
 	mkdir -p $(BIN)
-	$(CXX) -pthread -o $(BIN)/runtests $(BIN)/Test.o $(BIN)/TestLinkedList.o \
-    $(BIN)/BinaryTree.o $(BIN)/ConstIterator.o $(BIN)/LinkedList.o \
-    $(BIN)/Iterator.o
+	$(CXX) -pthread -o $(BIN)/runtests $(BIN)/Test.o $(BIN)/TestBinaryTree.o \
+	$(BIN)/TestLinkedList.o $(BIN)/BinaryTree.o $(BIN)/ConstIterator.o \
+	$(BIN)/LinkedList.o $(BIN)/Iterator.o
 
 datastructures: BinaryTree.o ConstIterator.o Iterator.o LinkedList.o
 

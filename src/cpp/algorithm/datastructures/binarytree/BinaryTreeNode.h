@@ -23,12 +23,14 @@ template<class item_type> class BinaryTreeNode {
   BinaryTreeNode(BinaryTreeNode<item_type> &binarytreenode);
   /** Destructor. */
   virtual ~BinaryTreeNode();
-  /** Deletes a node from the binary tree. */
+  /** Deletes a node from the binary tree node children. */
   void erase(BinaryTreeNode<item_type>* node_ptr);
   /** Finds an item in the tree. */
   BinaryTreeNode<item_type>* find(item_type item);
   /** Finds an item in the tree. */
   const BinaryTreeNode<item_type>* find(item_type item) const;
+  /** Prints inorder walk of the tree */
+  void inorder();
   /** Inserts an item in the tree. */
   void insert(item_type item);
   /** Returns the item of the node. */

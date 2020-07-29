@@ -10,7 +10,6 @@
 #ifndef ALGORITHM_BINARYTREE
 #define ALGORITHM_BINARYTREE
 
-#include "BinaryTree.h"
 #include "BinaryTreeNode.h"
 
 namespace algorithm {
@@ -32,6 +31,8 @@ template<class item_type> class BinaryTree {
   BinaryTreeNode<item_type>* find(item_type item);
   /** Finds an item in the tree. */
   const BinaryTreeNode<item_type>* find(item_type item) const;
+  /** Prints inorder walk of the tree */
+  void inorder();
   /** Inserts an item in the tree. */
   void insert(item_type item);
   /** Returns the size of the tree. */
@@ -41,6 +42,7 @@ template<class item_type> class BinaryTree {
   BinaryTreeNode<item_type>* _root_ptr;
   /** Stores the size of the binary tree. */
   unsigned int _size;
+  friend class TestBinaryTree;
 };
 
 } // namespace

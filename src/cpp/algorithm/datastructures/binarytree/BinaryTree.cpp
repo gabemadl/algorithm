@@ -37,7 +37,59 @@ template<class item_type> void BinaryTree<item_type>::clear() {
 /** Deletes a node from the binary tree. */
 template<class item_type> void BinaryTree<item_type>::erase(
     BinaryTreeNode<item_type>* node_ptr) {
-
+  if (_root_ptr != node_ptr) {
+    _root_ptr->erase(node_ptr);
+  } else {
+    BinaryTreeNode<item_type>* left_ptr = node_ptr->left();
+    BinaryTreeNode<item_type>* right_ptr = node_ptr->right();
+    // Children of left subtree.
+    BinaryTreeNode<item_type>* left_a_ptr =
+        (left_ptr) ? left_ptr->left() : NULL;
+    BinaryTreeNode<item_type>* left_b_ptr =
+        (left_ptr) ? left_ptr->right() : NULL;
+    // Children of right subtree.
+    BinaryTreeNode<item_type>* right_c_ptr =
+        (right_ptr) ? right_ptr->left() : NULL;
+    BinaryTreeNode<item_type>* right_d_ptr =
+        (right_ptr) ? right_ptr->right() : NULL;
+    // Delete node_ptr.
+    node_ptr->left(NULL);
+    node_ptr->right(NULL);
+    delete node_ptr;
+    if (left_ptr) {
+      // Setting left_ptr as new root of the tree.
+      left_ptr->parent(NULL);
+      _root_ptr = left_ptr;
+      if (right_ptr) {
+        left_ptr->right(right_ptr);
+        right_ptr->parent(left_ptr);
+        if (left_b_ptr) {
+          if (right_c_ptr) {
+            // Find leftmost child of right_c_ptr.
+            node_ptr = right_c_ptr;
+            while(node_ptr->left()) {
+              node_ptr=node_ptr->left();
+            }
+            node_ptr->left(left_b_ptr);
+            left_b_ptr->parent(node_ptr);
+          } else {
+            // No right C subtree.
+            right_ptr->left(left_b_ptr);
+            left_b_ptr->parent(right_ptr);
+          }
+        }
+      }
+    } else if (right_ptr) {
+      // No left subtree.
+      // Setting right_ptr as new root of the tree.
+      right_ptr->parent(NULL);
+      _root_ptr = right_ptr;
+    } else {
+      // node_ptr has no children.
+      _root_ptr = NULL;
+    }
+  }
+  --_size;
 }
 
 /** Checks whether the tree is empty. */
@@ -48,13 +100,23 @@ template<class item_type> const bool BinaryTree<item_type>::empty() const {
 /** Finds an item in the tree. */
 template<class item_type> BinaryTreeNode<item_type>*
     BinaryTree<item_type>::find(item_type item) {
-
+  return _root_ptr->find(item);
 }
 
 /** Finds an item in the tree. */
 template<class item_type> const BinaryTreeNode<item_type>*
     BinaryTree<item_type>::find(item_type item) const {
+  return _root_ptr->find(item);
+}
 
+/** Prints inorder walk of the tree */
+template<class item_type> void BinaryTree<item_type>::inorder() {
+  if (_root_ptr) {
+    _root_ptr->inorder();
+    std::cout << std::endl;
+  } else {
+    std::cout << "Empty tree" << std::endl;
+  }
 }
 
 /** Inserts an item in the tree. */

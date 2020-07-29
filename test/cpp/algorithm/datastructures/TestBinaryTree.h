@@ -10,8 +10,6 @@
 #ifndef ALGORITHM_TEST_BINARYTREE
 #define ALGORITHM_TEST_BINARYTREE
 
-#define ARRAYSIZE 10
-
 #include "../../../../src/cpp/algorithm/datastructures/binarytree/BinaryTree.h"
 #include "../../../../src/cpp/algorithm/datastructures/binarytree/BinaryTree.cpp"
 
@@ -24,13 +22,12 @@ class TestBinaryTree {
   TestBinaryTree();
   /** Destructor. */
   virtual ~TestBinaryTree();
-  /** Initializes a random _array. */
-  void initarray();
-  /** Run tests on the linked list. */
+  /** Initializes a binary tree. */
+  BinaryTree<int>* inittree();
+  /** Initializes a large binary tree. */
+  BinaryTree<int>* initlargetree();
+  /** Run tests on the binary tree. */
   bool runtests();
- protected:
-  /** Array used for testing. */
-  int _array[ARRAYSIZE];
 };
 
 } // namespace
