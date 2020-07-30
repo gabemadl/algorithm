@@ -8,6 +8,8 @@
  */
 
 #include "BinaryTree.h"
+
+#include "algorithm/Common.h"
 #include "BinaryTreeNode.cpp"
 
 namespace algorithm {
@@ -109,16 +111,6 @@ template<class item_type> const BinaryTreeNode<item_type>*
   return _root_ptr->find(item);
 }
 
-/** Prints inorder walk of the tree */
-template<class item_type> void BinaryTree<item_type>::inorder() {
-  if (_root_ptr) {
-    _root_ptr->inorder();
-    std::cout << std::endl;
-  } else {
-    std::cout << "Empty tree" << std::endl;
-  }
-}
-
 /** Inserts an item in the tree. */
 template<class item_type> void BinaryTree<item_type>::insert(item_type item) {
   if (_root_ptr) {
@@ -134,6 +126,17 @@ template<class item_type> void BinaryTree<item_type>::insert(item_type item) {
 template<class item_type> const unsigned int
     BinaryTree<item_type>::size() const {
   return _size;
+}
+
+/** String representation of the tree. */
+template<class item_type> std::string BinaryTree<item_type>::to_str() {
+  std::string out;
+  if (_root_ptr) {
+    out << _root_ptr->to_str();
+  } else {
+    out << "Empty tree.\n";
+  }
+  return out;
 }
 
 } //namespace

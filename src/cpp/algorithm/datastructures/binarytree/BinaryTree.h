@@ -31,12 +31,12 @@ template<class item_type> class BinaryTree {
   BinaryTreeNode<item_type>* find(item_type item);
   /** Finds an item in the tree. */
   const BinaryTreeNode<item_type>* find(item_type item) const;
-  /** Prints inorder walk of the tree */
-  void inorder();
   /** Inserts an item in the tree. */
   void insert(item_type item);
   /** Returns the size of the tree. */
   const unsigned int size() const;
+  /** String representation of the tree. */
+  std::string to_str();
  protected:
   /** Pointer to the root of the binary tree. */
   BinaryTreeNode<item_type>* _root_ptr;

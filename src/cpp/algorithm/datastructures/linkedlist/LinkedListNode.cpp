@@ -7,6 +7,7 @@
  * Copyright (c) 2020 Gabor Madl, All Rights Reserved.
  */
 
+#include "algorithm/Common.h"
 #include "LinkedListNode.h"
 
 namespace algorithm {

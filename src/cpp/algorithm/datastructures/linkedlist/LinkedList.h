@@ -51,6 +51,8 @@ template<class item_type> class LinkedList {
   void push_back(item_type item);
   /** Returns the size of the linked list. */
   const unsigned int size() const;
+  /** Returns a string representation of the list. */
+  std::string to_str();
  protected:
   /** Pointer to the last node of the linked list. */
   LinkedListNode<item_type>* _last_ptr;

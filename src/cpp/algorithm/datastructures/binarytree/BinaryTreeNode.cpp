@@ -8,6 +8,7 @@
  */
 
 #include "BinaryTreeNode.h"
+#include "algorithm/Common.h"
 
 namespace algorithm {
 
@@ -180,23 +181,6 @@ template<class item_type> const BinaryTreeNode<item_type>*
   return (item == node_ptr->_item) ? node_ptr : node_ptr->find(item);
 }
 
-/** Prints inorder walk of the tree */
-template<class item_type> void BinaryTreeNode<item_type>::inorder() {
-  if (_right_ptr) {
-    _right_ptr->inorder();
-  }
-  int depth;
-  BinaryTreeNode<item_type>* node_ptr = this;
-  for (depth = 0; node_ptr; ++depth) {
-    node_ptr = node_ptr->_parent_ptr;
-    std::cout << "  ";
-  }
-  std::cout << _item << std::endl;
-  if (_left_ptr) {
-    _left_ptr->inorder();
-  }
-}
-
 /** Inserts an item in the tree recursively. */
 template<class item_type> void
     BinaryTreeNode<item_type>::insert(item_type item) {
@@ -248,6 +232,22 @@ template <class item_type> const BinaryTreeNode<item_type>*
   return _left_ptr;
 }
 
+/** Sets the pointer pointing to the left child of the node. */
+template <class item_type> void BinaryTreeNode<item_type>::left(
+    BinaryTreeNode<item_type>* left_ptr) {
+  _left_ptr = left_ptr;
+}
+
+/** Assignment operator. */
+template<class item_type> BinaryTreeNode<item_type>&
+    BinaryTreeNode<item_type>::operator=(BinaryTreeNode <item_type>& node) {
+  // Potential memory leak.
+  _item = node._item;
+  _left_ptr = node._left_ptr;
+  _parent_ptr = node._parent_ptr;
+  _right_ptr = node._right_ptr;
+}
+
 /** Gets pointer to the parent of the node. */
 template <class item_type> BinaryTreeNode<item_type>*
     BinaryTreeNode<item_type>::parent() {
@@ -258,6 +258,12 @@ template <class item_type> BinaryTreeNode<item_type>*
 template <class item_type> const BinaryTreeNode<item_type>*
     BinaryTreeNode<item_type>::parent() const {
   return _parent_ptr;
+}
+
+/** Sets the pointer pointing to the left child of the node. */
+template <class item_type> void BinaryTreeNode<item_type>::parent(
+    BinaryTreeNode<item_type>* parent_ptr) {
+  _parent_ptr = parent_ptr;
 }
 
 /** Gets pointer to the right child of the node. */
@@ -272,32 +278,33 @@ template <class item_type> const BinaryTreeNode<item_type>*
   return _right_ptr;
 }
 
-/** Sets the pointer pointing to the left child of the node. */
-template <class item_type> void BinaryTreeNode<item_type>::left(
-    BinaryTreeNode<item_type>* left_ptr) {
-  _left_ptr = left_ptr;
-}
-
-/** Sets the pointer pointing to the left child of the node. */
-template <class item_type> void BinaryTreeNode<item_type>::parent(
-    BinaryTreeNode<item_type>* parent_ptr) {
-  _parent_ptr = parent_ptr;
-}
-
 /** Sets the pointer pointing to the right child of the node. */
 template <class item_type> void BinaryTreeNode<item_type>::right(
     BinaryTreeNode<item_type>* right_ptr) {
   _right_ptr = right_ptr;
 }
 
-/** Assignment operator. */
-template<class item_type> BinaryTreeNode<item_type>&
-    BinaryTreeNode<item_type>::operator=(BinaryTreeNode <item_type>& node) {
-  // Potential memory leak.
-  _item = node._item;
-  _left_ptr = node._left_ptr;
-  _parent_ptr = node._parent_ptr;
-  _right_ptr = node._right_ptr;
+/** String representation of the tree. */
+template<class item_type> std::string BinaryTreeNode<item_type>::to_str() {
+  std::string out;
+  /* Note that this is not actually an in-order walk of the tree, but it
+   * generates output as if it were, due to the 90 degree rotation of the tree
+   * in the output.
+   */
+  if (_right_ptr) {
+    out << _right_ptr->to_str();
+  }
+  int depth;
+  BinaryTreeNode<item_type>* node_ptr = this;
+  for (depth = 0; node_ptr->_parent_ptr; ++depth) {
+    node_ptr = node_ptr->_parent_ptr;
+    out << ".";
+  }
+  out << _item << "\n";
+  if (_left_ptr) {
+    out << _left_ptr->to_str();
+  }
+  return out;
 }
 
 } // namespace

@@ -7,6 +7,7 @@
  * Copyright (c) 2020 Gabor Madl, All Rights Reserved.
  */
 
+#include "algorithm/Common.h"
 #include "LinkedList.h"
 #include "LinkedListNode.cpp"
 
@@ -135,6 +136,18 @@ template<class item_type> void
 template<class item_type> const unsigned int
     LinkedList<item_type>::size() const {
   return _size;
+}
+
+template<class item_type> std::string LinkedList<item_type>::to_str() {
+  std::string str;
+  LinkedListNode<int>* ptr;
+  for (ptr = begin(); ptr != NULL; ptr = ptr->iter_next()) {
+    if (ptr != begin()) {
+      str << " ";
+    }
+    str << ptr->item();
+  }
+  return str;
 }
 
 } // namespace

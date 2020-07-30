@@ -10,4 +10,22 @@
 #ifndef ALGORITHM_TEST_ITERATOR
 #define ALGORITHM_TEST_ITERATOR
 
+#include "algorithm/datastructures/iterator/Iterator.h"
+#include "algorithm/datastructures/iterator/Iterator.cpp"
+
+namespace algorithm {
+
+/** TestIterator class. */
+class TestIterator {
+ public:
+  /** Constructor. */
+  TestIterator();
+  /** Destructor. */
+  virtual ~TestIterator();
+  /** Run tests on iterators. */
+  bool runtests();
+};
+
+} // namespace
+
 #endif
