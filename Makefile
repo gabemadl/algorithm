@@ -20,8 +20,9 @@ TESTDATASTRUCTURES = $(TEST)/datastructures
 all: common datastructures test
 	mkdir -p $(BIN)
 	$(CXX) -pthread -o $(BIN)/runtests $(BIN)/Test.o $(BIN)/TestBinaryTree.o \
-	$(BIN)/TestLinkedList.o $(BIN)/Common.o $(BIN)/BinaryTree.o \
-	$(BIN)/ConstIterator.o $(BIN)/LinkedList.o $(BIN)/Iterator.o
+	$(BIN)/TestIterator.o $(BIN)/TestLinkedList.o $(BIN)/Common.o \
+	$(BIN)/BinaryTree.o $(BIN)/ConstIterator.o $(BIN)/LinkedList.o \
+	$(BIN)/Iterator.o
 
 common: Common.o
 

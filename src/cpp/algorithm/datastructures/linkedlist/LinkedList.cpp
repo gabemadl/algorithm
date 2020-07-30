@@ -7,6 +7,9 @@
  * Copyright (c) 2020 Gabor Madl, All Rights Reserved.
  */
 
+#ifndef ALGORITHM_LINKEDLIST_CPP
+#define ALGORITHM_LINKEDLIST_CPP
+
 #include "algorithm/Common.h"
 #include "LinkedList.h"
 #include "LinkedListNode.cpp"
@@ -50,16 +53,10 @@ template<class item_type> void LinkedList<item_type>::clear() {
   }
 }
 
-/** Pointer to the last node of the linked list. */
-template<class item_type> LinkedListNode<item_type>*
-    LinkedList<item_type>::end() {
-  return _last_ptr;
-}
-
-/** Pointer to the last node of the linked list. */
+/** Pointer to the element past the last node of the linked list. */
 template<class item_type> const LinkedListNode<item_type>*
     LinkedList<item_type>::end() const {
-  return _last_ptr;
+  return NULL;
 }
 
 /** Checks whether the linked list is empty. */
@@ -132,6 +129,24 @@ template<class item_type> void
   ++_size;
 }
 
+
+/** Pointer to the beginning of the linked list. */
+template<class item_type> const LinkedListNode<item_type>*
+    LinkedList<item_type>::rbegin() const {
+  return NULL;
+}
+
+/** Pointer to the element past the last node of the linked list. */
+template<class item_type> LinkedListNode<item_type>*
+    LinkedList<item_type>::rend() {
+  return _last_ptr;
+}
+
+/** Pointer to the element past the last node of the linked list. */
+template<class item_type> const LinkedListNode<item_type>*
+    LinkedList<item_type>::rend() const {
+  return _last_ptr;
+}
 /** Returns the size of the linkedlist. */
 template<class item_type> const unsigned int
     LinkedList<item_type>::size() const {
@@ -151,3 +166,5 @@ template<class item_type> std::string LinkedList<item_type>::to_str() {
 }
 
 } // namespace
+
+#endif

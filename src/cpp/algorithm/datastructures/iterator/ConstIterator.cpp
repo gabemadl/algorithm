@@ -7,6 +7,9 @@
  * Copyright (c) 2020 Gabor Madl, All Rights Reserved.
  */
 
+#ifndef ALGORITHM_CONST_ITERATOR_CPP
+#define ALGORITHM_CONST_ITERATOR_CPP
+
 #include "ConstIterator.h"
 
 namespace algorithm {
@@ -145,3 +148,5 @@ template<class item_type> Const_Iterator<item_type>&
 }
 
 }  // namespace
+
+#endif

@@ -7,6 +7,9 @@
  * Copyright (c) 2020 Gabor Madl, All Rights Reserved.
  */
 
+#ifndef ALGORITHM_BINARYTREENODE_CPP
+#define ALGORITHM_BINARYTREENODE_CPP
+
 #include "BinaryTreeNode.h"
 #include "algorithm/Common.h"
 
@@ -308,3 +311,5 @@ template<class item_type> std::string BinaryTreeNode<item_type>::to_str() {
 }
 
 } // namespace
+
+#endif

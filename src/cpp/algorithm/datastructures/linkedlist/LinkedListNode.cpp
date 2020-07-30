@@ -7,10 +7,19 @@
  * Copyright (c) 2020 Gabor Madl, All Rights Reserved.
  */
 
+#ifndef ALGORITHM_LINKEDLISTNODE_CPP
+#define ALGORITHM_LINKEDLISTNODE_CPP
+
 #include "algorithm/Common.h"
 #include "LinkedListNode.h"
 
 namespace algorithm {
+
+/** Constructor. */
+template<class item_type> LinkedListNode<item_type>::LinkedListNode()
+    :
+    _left_ptr(NULL),
+    _right_ptr(NULL) { }
 
 /** Constructor. */
 template<class item_type> LinkedListNode<item_type>::LinkedListNode(
@@ -143,3 +152,5 @@ template<class item_type> bool LinkedListNode<item_type>::operator!=(
 }
 
 } // namespace
+
+#endif

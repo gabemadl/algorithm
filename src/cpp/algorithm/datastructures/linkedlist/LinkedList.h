@@ -27,9 +27,7 @@ template<class item_type> class LinkedList {
   const LinkedListNode<item_type>* begin() const;
   /** Clears the linked list. */
   void clear();
-  /** Pointer to the last node of the linked list. */
-  LinkedListNode<item_type>* end();
-  /** Pointer to the last node of the linked list. */
+  /** Returns NULL. Used in iterators. */
   const LinkedListNode<item_type>* end() const;
   /** Checks whether the linked list is empty. */
   const bool empty() const;
@@ -49,6 +47,12 @@ template<class item_type> class LinkedList {
       LinkedListNode<item_type>* begin) const;
   /** Insert a linked list node at the end of the list. */
   void push_back(item_type item);
+  /** Returns NULL. Used in iterators. */
+  const LinkedListNode<item_type>* rbegin() const;
+  /** Pointer to the last node of the linked list. */
+  LinkedListNode<item_type>* rend();
+  /** Pointer to the last node of the linked list. */
+  const LinkedListNode<item_type>* rend() const;
   /** Returns the size of the linked list. */
   const unsigned int size() const;
   /** Returns a string representation of the list. */

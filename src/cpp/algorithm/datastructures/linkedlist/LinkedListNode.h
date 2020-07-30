@@ -18,6 +18,8 @@ namespace algorithm {
 template<class item_type> class LinkedListNode {
  public:
   /** Constructor. */
+  LinkedListNode();
+  /** Constructor. */
   LinkedListNode(item_type item, LinkedListNode<item_type>* left_ptr);
   /** Copy constructor. */
   LinkedListNode(LinkedListNode<item_type> &node);

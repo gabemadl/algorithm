@@ -13,19 +13,6 @@
 
 namespace algorithm {
 
-int TestLinkedList::_array1[] = {10, 50, 20, 60, 40, 90, 30, 80, 100, 70};
-int TestLinkedList::_array2[] = {40, 20, 90, 70, 100, 10, 30, 60, 80, 50};
-const char* TestLinkedList::_list1 = "10 50 20 60 40 90 30 80 100 70";
-const char* TestLinkedList::_list2 = "70 100 80 30 90 40 60 20 50 10";
-const char* TestLinkedList::_list3 = "10 50 20 60 90 30 80 100 70";
-const char* TestLinkedList::_list4 = "50 20 60 90 30 80 100 70";
-const char* TestLinkedList::_list5 = "50 20 60 90 30 80 100";
-const char* TestLinkedList::_list6 = "40 20 90 70 100 10 30 60 80 50";
-const char* TestLinkedList::_list7 = "50 80 60 30 10 100 70 90 20 40";
-const char* TestLinkedList::_list8 = "40 20 90 70 10 30 60 80 50";
-const char* TestLinkedList::_list9 = "20 90 70 10 30 60 80 50";
-const char* TestLinkedList::_list10 = "20 90 70 10 30 60 80";
-
 /** Constructor. */
 TestLinkedList::TestLinkedList() { }
 
@@ -81,8 +68,9 @@ bool TestLinkedList::test1() {
   }
   std::cout << "Iterating through linked list backwards." << std::endl;
   str.clear();
-  for (ptr = linkedlist->end(); ptr != NULL; ptr = ptr->iter_previous()) {
-    if (ptr != linkedlist->end()) {
+  for (ptr = linkedlist->rend(); ptr != linkedlist->rbegin();
+      ptr = ptr->iter_previous()) {
+    if (ptr != linkedlist->rend()) {
       str << " ";
     }
     str << ptr->item();
@@ -213,8 +201,9 @@ bool TestLinkedList::test4() {
   }
   std::cout << "Iterating through linked list backwards." << std::endl;
   str.clear();
-  for (ptr = linkedlist->end(); ptr != NULL; ptr = ptr->iter_previous()) {
-    if (ptr != linkedlist->end()) {
+  for (ptr = linkedlist->rend(); ptr != linkedlist->rbegin();
+      ptr = ptr->iter_previous()) {
+    if (ptr != linkedlist->rend()) {
       str << " ";
     }
     str << ptr->item();
@@ -284,5 +273,17 @@ bool TestLinkedList::test5() {
   return pass;
 }
 
+int TestLinkedList::_array1[] = {10, 50, 20, 60, 40, 90, 30, 80, 100, 70};
+int TestLinkedList::_array2[] = {40, 20, 90, 70, 100, 10, 30, 60, 80, 50};
+const char* TestLinkedList::_list1 = "10 50 20 60 40 90 30 80 100 70";
+const char* TestLinkedList::_list2 = "70 100 80 30 90 40 60 20 50 10";
+const char* TestLinkedList::_list3 = "10 50 20 60 90 30 80 100 70";
+const char* TestLinkedList::_list4 = "50 20 60 90 30 80 100 70";
+const char* TestLinkedList::_list5 = "50 20 60 90 30 80 100";
+const char* TestLinkedList::_list6 = "40 20 90 70 100 10 30 60 80 50";
+const char* TestLinkedList::_list7 = "50 80 60 30 10 100 70 90 20 40";
+const char* TestLinkedList::_list8 = "40 20 90 70 10 30 60 80 50";
+const char* TestLinkedList::_list9 = "20 90 70 10 30 60 80 50";
+const char* TestLinkedList::_list10 = "20 90 70 10 30 60 80";
 
 } // namespace

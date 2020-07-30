@@ -7,15 +7,22 @@
  * Copyright (c) 2020 Gabor Madl, All Rights Reserved.
  */
 
+#ifndef ALGORITHM_ITERATOR_CPP
+#define ALGORITHM_ITERATOR_CPP
+
 #include "Iterator.h"
 
 namespace algorithm {
 
 template<class item_type>
-    Iterator<item_type>::Iterator(item_type *node_ptr)
+    Iterator<item_type>::Iterator()
+    :
+    _node_ptr(NULL) { }
+
+template<class item_type>
+    Iterator<item_type>::Iterator(item_type* node_ptr)
     :
     _node_ptr(node_ptr) { }
-
 
 template<class item_type>
     Iterator<item_type>::Iterator(Iterator<item_type> &iter)
@@ -133,3 +140,5 @@ template<class item_type>
 }
 
 }  // namespace
+
+#endif

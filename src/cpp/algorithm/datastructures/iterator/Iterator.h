@@ -10,6 +10,8 @@
 #ifndef ALGORITHM_ITERATOR
 #define ALGORITHM_ITERATOR
 
+#include <iostream>
+
 namespace algorithm {
 
 #ifndef ALGORITHM_CONST_ITERATOR
@@ -37,7 +39,7 @@ template<class item_type> class Iterator {
   /** Equivalence operator. */
   bool operator!=(Const_Iterator<item_type> &iter);
   /** Assignment operator. */
-  Iterator<item_type>& operator=(item_type *node_ptr);
+  Iterator<item_type>& operator=(item_type* node_ptr);
   /** Assignment operator. */
   Iterator<item_type>& operator=(Iterator<item_type> &iter);
   /** * operator. */
