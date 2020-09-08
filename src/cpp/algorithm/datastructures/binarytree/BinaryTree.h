@@ -43,6 +43,11 @@ template<class item_type> class BinaryTree {
   /** Stores the size of the binary tree. */
   unsigned int _size;
   friend class TestBinaryTree;
+ private:
+  /** Deletes a non-root node from the binary tree. */
+  void eraseChild(BinaryTreeNode<item_type>* node_ptr);
+  /** Deletes the root node from the binary tree. */
+  void eraseRoot();
 };
 
 } // namespace

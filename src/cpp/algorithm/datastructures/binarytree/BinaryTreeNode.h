@@ -23,8 +23,6 @@ template<class item_type> class BinaryTreeNode {
   BinaryTreeNode(BinaryTreeNode<item_type> &binarytreenode);
   /** Destructor. */
   virtual ~BinaryTreeNode();
-  /** Deletes a node from the binary tree node children. */
-  void erase(BinaryTreeNode<item_type>* node_ptr);
   /** Finds an item in the tree starting from the current node. */
   BinaryTreeNode<item_type>* find(item_type item);
   /** Finds an item in the tree starting from the current node. */
