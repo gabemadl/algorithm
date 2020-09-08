@@ -17,8 +17,8 @@ int main(int argc, char* argv[]) {
   // Test result.
   int pass = true;
   // Test binary trees.
-//  algorithm::TestBinaryTree testbinarytree;
-//  if (!testbinarytree.runtests()) pass = false;
+  algorithm::TestBinaryTree testbinarytree;
+  if (!testbinarytree.runtests()) pass = false;
   // Test linked lists.
   algorithm::TestLinkedList testlinkedlist;
   if (!testlinkedlist.runtests()) pass = false;

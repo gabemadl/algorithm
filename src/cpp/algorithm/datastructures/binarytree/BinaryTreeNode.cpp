@@ -146,62 +146,72 @@ template<class item_type> void
   }
 }
 
-/** Finds an item in the tree. */
+/** Finds an item in the tree starting from the current node. */
 template<class item_type> BinaryTreeNode<item_type>*
     BinaryTreeNode<item_type>::find(item_type item) {
-  BinaryTreeNode<item_type>* node_ptr = NULL;
-  // Match in root node.
-  if (item == _item) {
-    return this;
+  // Non-recursive implementation for better performance.
+  BinaryTreeNode<item_type>* node_ptr = this;
+  while (node_ptr && (item != node_ptr->item())) {
+    if (item < node_ptr->item()) {
+      // Item is in the left subtree.
+      node_ptr = node_ptr->left();
+    } else {
+      // Item is in the right subtree.
+      node_ptr = node_ptr->right();
+    }
   }
-  if (item < _item) {
-    // Item is in the left subtree.
-    node_ptr = _left_ptr;
-  } else {
-    // Item is in the right subtree.
-    node_ptr = _right_ptr;
-  }
-  // Check whether new item is a match. If not, continue searching recursively.
-  return (item == node_ptr->_item) ? node_ptr : node_ptr->find(item);
+  return (node_ptr && item == node_ptr->item()) ? node_ptr : NULL;
 }
 
-/** Finds an item in the tree. */
+/** Finds an item in the tree starting from the current node. */
 template<class item_type> const BinaryTreeNode<item_type>*
     BinaryTreeNode<item_type>::find(item_type item) const {
-  BinaryTreeNode<item_type>* node_ptr = NULL;
-  // Match in root node.
-  if (item == _item) {
-    return this;
+  // Non-recursive implementation for better performance.
+  BinaryTreeNode<item_type>* node_ptr = this;
+  while (node_ptr && (item != node_ptr->item())) {
+    if (item < node_ptr->item()) {
+      // Item is in the left subtree.
+      node_ptr = node_ptr->left();
+    } else {
+      // Item is in the right subtree.
+      node_ptr = node_ptr->right();
+    }
   }
-  if (item < _item) {
-    // Item is in the left subtree.
-    node_ptr = _left_ptr;
-  } else {
-    // Item is in the right subtree.
-    node_ptr = _right_ptr;
-  }
-  // Check whether new item is a match. If not, continue searching recursively.
-  return (item == node_ptr->_item) ? node_ptr : node_ptr->find(item);
+  return (node_ptr && item == node_ptr->item()) ? node_ptr : NULL;
 }
 
-/** Inserts an item in the tree recursively. */
+/** Inserts an item in the tree starting from the current node. */
 template<class item_type> void
     BinaryTreeNode<item_type>::insert(item_type item) {
-  if (item < _item) {
-    // Insert item in left subtree.
-    if (_left_ptr) {
-      _left_ptr->insert(item);
+  // Non-recursive implementation for better performance.
+  BinaryTreeNode<item_type>* node_ptr = this;
+  while (node_ptr) {
+    if (item < node_ptr->item()) {
+      // Insert item in left subtree.
+      if (node_ptr->left()) {
+        // Keep traversing tree to the left.
+        node_ptr = node_ptr->left();
+      } else {
+        // Create new left child.
+        BinaryTreeNode<item_type>* new_node =
+            new BinaryTreeNode<item_type>(item, node_ptr);
+        assert (new_node);
+        node_ptr->left(new_node);
+        break;
+      }
     } else {
-      // Create new left child.
-      _left_ptr = new BinaryTreeNode<item_type>(item, this);
-    }
-  } else {
-    // Insert item in right subtree
-    if (_right_ptr) {
-      _right_ptr->insert(item);
-    } else {
-      // Create new right child.
-      _right_ptr = new BinaryTreeNode<item_type>(item, this);
+      // Insert item in right subtree
+      if (node_ptr->right()) {
+        // Keep traversing tree to the right.
+        node_ptr = node_ptr->right();
+      } else {
+        // Create new right child.
+        BinaryTreeNode<item_type>* new_node =
+            new BinaryTreeNode<item_type>(item, node_ptr);
+        assert (new_node);
+        node_ptr->right(new_node);
+        break;
+      }
     }
   }
 }

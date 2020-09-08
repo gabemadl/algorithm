@@ -25,11 +25,11 @@ template<class item_type> class BinaryTreeNode {
   virtual ~BinaryTreeNode();
   /** Deletes a node from the binary tree node children. */
   void erase(BinaryTreeNode<item_type>* node_ptr);
-  /** Finds an item in the tree. */
+  /** Finds an item in the tree starting from the current node. */
   BinaryTreeNode<item_type>* find(item_type item);
-  /** Finds an item in the tree. */
+  /** Finds an item in the tree starting from the current node. */
   const BinaryTreeNode<item_type>* find(item_type item) const;
-  /** Inserts an item in the tree. */
+  /** Inserts an item in the tree starting from the current node. */
   void insert(item_type item);
   /** Returns the item of the node. */
   item_type item();

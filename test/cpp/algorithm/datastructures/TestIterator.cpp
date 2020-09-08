@@ -58,13 +58,13 @@ bool TestIterator::runtests() {
   if (!test4()) pass = false;
   if (!test5()) pass = false;
   if (pass) {
-    std::cout << "---------------------------" << std::endl;
-    std::cout << "All binary tree tests pass." << std::endl;
-    std::cout << "---------------------------" << std::endl;
+    std::cout << "------------------------" << std::endl;
+    std::cout << "All iterator tests pass." << std::endl;
+    std::cout << "------------------------" << std::endl;
   } else {
-    std::cout << "-----------------------------------" << std::endl;
-    std::cout << "Some binary tree tests have failed." << std::endl;
-    std::cout << "-----------------------------------" << std::endl;
+    std::cout << "--------------------------------" << std::endl;
+    std::cout << "Some iterator tests have failed." << std::endl;
+    std::cout << "--------------------------------" << std::endl;
   }
   return pass;
 }
