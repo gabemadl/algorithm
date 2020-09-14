@@ -114,7 +114,7 @@ bool TestIterator::test1() {
   } else {
     std::cout << "---------- Failed ----------" << std::endl;
   }
-  return true;
+  return pass;
 }
 
 bool TestIterator::test2() {
@@ -125,7 +125,7 @@ bool TestIterator::test2() {
   } else {
     std::cout << "---------- Failed ----------" << std::endl;
   }
-  return true;
+  return pass;
 }
 
 bool TestIterator::test3() {
@@ -136,7 +136,7 @@ bool TestIterator::test3() {
   } else {
     std::cout << "---------- Failed ----------" << std::endl;
   }
-  return true;
+  return pass;
 }
 
 bool TestIterator::test4() {
@@ -147,7 +147,7 @@ bool TestIterator::test4() {
   } else {
     std::cout << "---------- Failed ----------" << std::endl;
   }
-  return true;
+  return pass;
 }
 
 bool TestIterator::test5() {
@@ -158,7 +158,7 @@ bool TestIterator::test5() {
   } else {
     std::cout << "---------- Failed ----------" << std::endl;
   }
-  return true;
+  return pass;
 }
 
 int TestIterator::_array1[] = {10, 50, 20, 60, 40, 90, 30, 80, 100, 70};

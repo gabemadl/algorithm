@@ -19,10 +19,10 @@ TESTDATASTRUCTURES = $(TEST)/datastructures
 
 all: common datastructures test
 	mkdir -p $(BIN)
-	$(CXX) -pthread -o $(BIN)/runtests $(BIN)/Test.o $(BIN)/TestBinaryTree.o \
-	$(BIN)/TestIterator.o $(BIN)/TestLinkedList.o $(BIN)/Common.o \
-	$(BIN)/BinaryTree.o $(BIN)/ConstIterator.o $(BIN)/LinkedList.o \
-	$(BIN)/Iterator.o
+	$(CXX) -pthread -o $(BIN)/runtests $(BIN)/Test.o $(BIN)/TestAvlTree.o \
+	$(BIN)/TestBinaryTree.o $(BIN)/TestIterator.o $(BIN)/TestLinkedList.o \
+	$(BIN)/Common.o $(BIN)/AvlTree.o $(BIN)/BinaryTree.o \
+	$(BIN)/ConstIterator.o $(BIN)/LinkedList.o $(BIN)/Iterator.o
 
 common: Common.o
 
@@ -33,7 +33,14 @@ Common.o: $(ALGORITHM)/Common.cpp \
 	-c $(ALGORITHM)/Common.cpp -o \
 	$(BIN)/Common.o
 
-datastructures: BinaryTree.o ConstIterator.o Iterator.o LinkedList.o
+datastructures: AvlTree.o BinaryTree.o ConstIterator.o Iterator.o LinkedList.o
+
+AvlTree.o: $(DATASTRUCTURES)/avltree/AvlTree.cpp \
+    $(DATASTRUCTURES)/avltree/AvlTree.h
+	mkdir -p $(BIN)
+	$(CXX) $(CPPFLAGS) $(CPPINCLUDE) \
+	-c $(DATASTRUCTURES)/avltree/AvlTree.cpp -o \
+	$(BIN)/AvlTree.o
 
 BinaryTree.o: $(DATASTRUCTURES)/binarytree/BinaryTree.cpp \
     $(DATASTRUCTURES)/binarytree/BinaryTree.h
@@ -63,7 +70,14 @@ LinkedList.o: $(DATASTRUCTURES)/linkedlist/LinkedList.cpp \
 	-c $(DATASTRUCTURES)/linkedlist/LinkedList.cpp -o \
 	$(BIN)/LinkedList.o
 
-test: TestBinaryTree.o TestIterator.o TestLinkedList.o Test.o
+test: TestAvlTree.o TestBinaryTree.o TestIterator.o TestLinkedList.o Test.o
+
+TestAvlTree.o: $(TESTDATASTRUCTURES)/TestAvlTree.cpp \
+    $(TESTDATASTRUCTURES)/TestAvlTree.h
+	mkdir -p $(BIN)
+	$(CXX) $(CPPFLAGS) $(CPPINCLUDE) \
+	-c $(TESTDATASTRUCTURES)/TestAvlTree.cpp -o \
+	$(BIN)/TestAvlTree.o
 
 TestBinaryTree.o: $(TESTDATASTRUCTURES)/TestBinaryTree.cpp \
     $(TESTDATASTRUCTURES)/TestBinaryTree.h
@@ -92,11 +106,13 @@ Test.o: $(TEST)/Test.cpp
 	-c $(TEST)/Test.cpp -o $(BIN)/Test.o
 
 clean:
+	rm $(BIN)/AvlTree.o
 	rm $(BIN)/BinaryTree.o
 	rm $(BIN)/Common.o
 	rm $(BIN)/ConstIterator.o
 	rm $(BIN)/Iterator.o
 	rm $(BIN)/LinkedList.o
+	rm $(BIN)/TestAvlTree.o
 	rm $(BIN)/TestBinaryTree.o
 	rm $(BIN)/TestIterator.o
 	rm $(BIN)/TestLinkedList.o
