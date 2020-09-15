@@ -89,42 +89,6 @@ template<class item_type> const BinaryTreeNode<item_type>*
   return (node_ptr && item == node_ptr->item()) ? node_ptr : NULL;
 }
 
-/** Inserts an item in the tree starting from the current node. */
-template<class item_type> void
-    BinaryTreeNode<item_type>::insert(item_type item) {
-  // Non-recursive implementation for better performance.
-  BinaryTreeNode<item_type>* node_ptr = this;
-  while (node_ptr) {
-    if (item < node_ptr->item()) {
-      // Insert item in left subtree.
-      if (node_ptr->left()) {
-        // Keep traversing tree to the left.
-        node_ptr = node_ptr->left();
-      } else {
-        // Create new left child.
-        BinaryTreeNode<item_type>* new_node =
-            new BinaryTreeNode<item_type>(item, node_ptr);
-        assert (new_node);
-        node_ptr->left(new_node);
-        break;
-      }
-    } else {
-      // Insert item in right subtree
-      if (node_ptr->right()) {
-        // Keep traversing tree to the right.
-        node_ptr = node_ptr->right();
-      } else {
-        // Create new right child.
-        BinaryTreeNode<item_type>* new_node =
-            new BinaryTreeNode<item_type>(item, node_ptr);
-        assert (new_node);
-        node_ptr->right(new_node);
-        break;
-      }
-    }
-  }
-}
-
 /** Returns the item of the node. */
 template <class item_type> item_type BinaryTreeNode<item_type>::item() {
   return _item;
@@ -207,7 +171,8 @@ template <class item_type> void BinaryTreeNode<item_type>::right(
 }
 
 /** String representation of the tree. */
-template<class item_type> std::string BinaryTreeNode<item_type>::to_str() {
+template<class item_type> const std::string
+    BinaryTreeNode<item_type>::to_str() const {
   std::string out;
   /* Note that this is not actually an in-order walk of the tree, but it
    * generates output as if it were, due to the 90 degree rotation of the tree
@@ -217,7 +182,7 @@ template<class item_type> std::string BinaryTreeNode<item_type>::to_str() {
     out << _right_ptr->to_str();
   }
   int depth;
-  BinaryTreeNode<item_type>* node_ptr = this;
+  const BinaryTreeNode<item_type>* node_ptr = this;
   for (depth = 0; node_ptr->_parent_ptr; ++depth) {
     node_ptr = node_ptr->_parent_ptr;
     out << ".";

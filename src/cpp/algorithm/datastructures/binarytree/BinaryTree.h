@@ -36,7 +36,7 @@ template<class item_type> class BinaryTree {
   /** Returns the size of the tree. */
   const unsigned int size() const;
   /** String representation of the tree. */
-  std::string to_str();
+  const std::string to_str() const;
  protected:
   /** Pointer to the root of the binary tree. */
   BinaryTreeNode<item_type>* _root_ptr;

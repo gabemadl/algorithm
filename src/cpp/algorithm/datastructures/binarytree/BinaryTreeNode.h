@@ -31,8 +31,6 @@ template<class item_type> class BinaryTreeNode {
   BinaryTreeNode<item_type>* find(item_type item);
   /** Finds an item in the tree starting from the current node. */
   const BinaryTreeNode<item_type>* find(item_type item) const;
-  /** Inserts an item in the tree starting from the current node. */
-  void insert(item_type item);
   /** Returns the item of the node. */
   item_type item();
   /** Returns the item of the node. */
@@ -60,7 +58,7 @@ template<class item_type> class BinaryTreeNode {
   /** Sets the pointer pointing to the right child of the node. */
   void right(BinaryTreeNode<item_type>* right_ptr);
   /** String representation of the tree */
-  std::string to_str();
+  const std::string to_str() const;
  protected:
   /** The item stored in the node. */
   item_type _item;

@@ -230,7 +230,38 @@ template<class item_type> const BinaryTreeNode<item_type>*
 /** Inserts an item in the tree. */
 template<class item_type> void BinaryTree<item_type>::insert(item_type item) {
   if (_root_ptr) {
-    _root_ptr->insert(item);
+    // Insert non-root node. Non-recursive implementation for better
+    // performance.
+    BinaryTreeNode<item_type>* node_ptr = _root_ptr;
+    while (node_ptr) {
+      if (item < node_ptr->item()) {
+        // Insert item in left subtree.
+        if (node_ptr->left()) {
+          // Keep traversing tree to the left.
+          node_ptr = node_ptr->left();
+        } else {
+          // Create new left child.
+          BinaryTreeNode<item_type>* new_node =
+              new BinaryTreeNode<item_type>(item, node_ptr);
+          assert (new_node);
+          node_ptr->left(new_node);
+          break;
+        }
+      } else {
+        // Insert item in right subtree
+        if (node_ptr->right()) {
+          // Keep traversing tree to the right.
+          node_ptr = node_ptr->right();
+        } else {
+          // Create new right child.
+          BinaryTreeNode<item_type>* new_node =
+              new BinaryTreeNode<item_type>(item, node_ptr);
+          assert (new_node);
+          node_ptr->right(new_node);
+          break;
+        }
+      }
+    }
   } else {
     // Create new root.
     _root_ptr = new BinaryTreeNode<item_type>(item, NULL);
@@ -245,7 +276,8 @@ template<class item_type> const unsigned int
 }
 
 /** String representation of the tree. */
-template<class item_type> std::string BinaryTree<item_type>::to_str() {
+template<class item_type> const std::string
+    BinaryTree<item_type>::to_str() const {
   std::string out;
   if (_root_ptr) {
     out << _root_ptr->to_str();
