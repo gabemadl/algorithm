@@ -7,6 +7,7 @@
  * Copyright (c) 2020 Gabor Madl, All Rights Reserved.
  */
 
+#include "datastructures/TestAvlTree.h"
 #include "datastructures/TestBinaryTree.h"
 #include "datastructures/TestIterator.h"
 #include "datastructures/TestLinkedList.h"
@@ -19,6 +20,9 @@ int main(int argc, char* argv[]) {
   // Test binary trees.
   algorithm::TestBinaryTree testbinarytree;
   if (!testbinarytree.runtests()) pass = false;
+  // Test AVL trees.
+  algorithm::TestAvlTree testavltree;
+  if (!testavltree.runtests()) pass = false;
   // Test linked lists.
   algorithm::TestLinkedList testlinkedlist;
   if (!testlinkedlist.runtests()) pass = false;

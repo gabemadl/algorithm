@@ -11,27 +11,30 @@
 #define ALGORITHM_AVLTREENODE
 
 #include <iostream>
-#include "algorithm/datastructures/avltree/AvlTreeNode.h"
+#include "algorithm/datastructures/linkedlist/LinkedList.h"
 
 namespace algorithm {
 
 /** BinaryTreeNode class. */
-template<class item_type> class AvlTreeNode : public BinaryTreeNode<item_type> {
+template<class item_type> class AvlTreeNode {
  public:
   /** Constructor. */
   AvlTreeNode(item_type item, AvlTreeNode<item_type>* parent_ptr);
   /** Copy constructor. */
   AvlTreeNode(AvlTreeNode<item_type> &avltreenode);
-  /** Copy constructor. */
-  AvlTreeNode(BinaryTreeNode<item_type> &binarytreenode);
   /** Destructor. */
   virtual ~AvlTreeNode();
+  /** Returns the depth of the subtree starting with the current node. */
+  const unsigned int depth() const;
   /** Finds an item in the tree starting from the current node. */
   AvlTreeNode<item_type>* find(item_type item);
   /** Finds an item in the tree starting from the current node. */
   const AvlTreeNode<item_type>* find(item_type item) const;
-  /** Inserts an item in the tree starting from the current node. */
-  void insert(item_type item);
+  /** Finds the path to the maximum depth node in the subtree starting from the
+   * current node. NOTE: Returned linkedlist MUST be destroyed by calling
+   * function otherwise memory leak occurs.
+   */
+  LinkedList<AvlTreeNode<item_type>*>* findMaxDepthPath();
   /** Returns the item of the node. */
   item_type item();
   /** Returns the item of the node. */
@@ -59,7 +62,7 @@ template<class item_type> class AvlTreeNode : public BinaryTreeNode<item_type> {
   /** Sets the pointer pointing to the right child of the node. */
   void right(AvlTreeNode<item_type>* right_ptr);
   /** String representation of the tree */
-  std::string to_str();
+  const std::string to_str() const;
  protected:
   /** The item stored in the node. */
   item_type _item;

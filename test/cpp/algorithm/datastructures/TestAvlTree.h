@@ -10,8 +10,6 @@
 #ifndef ALGORITHM_TEST_AVLTREE
 #define ALGORITHM_TEST_AVLTREE
 
-#include "algorithm/datastructures/binarytree/BinaryTree.h"
-#include "algorithm/datastructures/binarytree/BinaryTree.cpp"
 #include "algorithm/datastructures/avltree/AvlTree.h"
 #include "algorithm/datastructures/avltree/AvlTree.cpp"
 
@@ -26,6 +24,10 @@ class TestAvlTree {
   virtual ~TestAvlTree();
   /** Initializes an AVL tree. */
   AvlTree<int>* inittree();
+  /** Initializes an AVL tree. */
+  AvlTree<int>* inittree2();
+  /** Initializes an AVL tree. */
+  AvlTree<int>* inittree3();
   /** Initializes a large AVL tree. */
   AvlTree<int>* initlargetree();
   /** Run tests on the AVL tree. */
@@ -41,6 +43,9 @@ class TestAvlTree {
   /** Test1. */
   bool test5();
  protected:
+  static const char* list1;
+  static const char* list2;
+  static const char* list3;
   static const char* tree1;
   static const char* tree2;
   static const char* tree3;

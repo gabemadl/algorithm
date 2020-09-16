@@ -10,8 +10,10 @@
 #ifndef ALGORITHM_AVLTREENODE_CPP
 #define ALGORITHM_AVLTREENODE_CPP
 
+#include <climits>
 #include "AvlTreeNode.h"
 #include "algorithm/Common.h"
+#include "algorithm/datastructures/linkedlist/LinkedList.cpp"
 
 namespace algorithm {
 
@@ -19,7 +21,6 @@ namespace algorithm {
 template <class item_type> AvlTreeNode<item_type>::AvlTreeNode(
     item_type item, AvlTreeNode<item_type>* parent_ptr)
 :
-          BinaryTreeNode<item_type>(item, parent_ptr),
           _item(item),
           _left_ptr(NULL),
           _parent_ptr(parent_ptr),
@@ -29,27 +30,32 @@ template <class item_type> AvlTreeNode<item_type>::AvlTreeNode(
 template <class item_type> AvlTreeNode<item_type>::AvlTreeNode(
     AvlTreeNode<item_type> &avltreenode)
 :
-          BinaryTreeNode<item_type>(avltreenode._item, avltreenode._left_ptr,
-              avltreenode._parent_ptr, avltreenode._right_ptr),
           _item(avltreenode._item),
           _left_ptr(avltreenode._left_ptr),
           _parent_ptr(avltreenode._parent_ptr),
           _right_ptr(avltreenode._right_ptr) { }
 
-/** Copy constructor. */
-template <class item_type> AvlTreeNode<item_type>::AvlTreeNode(
-    BinaryTreeNode<item_type> &binarytreenode)
-    :
-              BinaryTreeNode<item_type>(binarytreenode._item,
-                  binarytreenode._left_ptr, binarytreenode._parent_ptr,
-                  binarytreenode._right_ptr),
-              _item(binarytreenode._item),
-              _left_ptr(binarytreenode._left_ptr),
-              _parent_ptr(binarytreenode._parent_ptr),
-              _right_ptr(binarytreenode._right_ptr) { }
-
 /** Destructor. */
 template <class item_type> AvlTreeNode<item_type>::~AvlTreeNode() { }
+
+/** Returns the depth of the subtree starting with the current node. */
+template <class item_type> const unsigned int
+    AvlTreeNode<item_type>::depth() const {
+  unsigned int left = 0, right = 0;
+  if (_left_ptr) {
+    left = _left_ptr->depth();
+  }
+  if (_right_ptr) {
+    right = _right_ptr->depth();
+  }
+  if (left < UINT_MAX) {
+    ++left;
+  }
+  if (right < UINT_MAX) {
+    ++right;
+  }
+  return (left < right) ? right : left;
+}
 
 /** Finds an item in the tree starting from the current node. */
 template <class item_type> AvlTreeNode<item_type>*
@@ -85,39 +91,47 @@ template <class item_type> const AvlTreeNode<item_type>*
   return (node_ptr && item == node_ptr->item()) ? node_ptr : NULL;
 }
 
-/** Inserts an item in the tree starting from the current node. */
-template<class item_type> void
-    AvlTreeNode<item_type>::insert(item_type item) {
-  // Non-recursive implementation for better performance.
-  AvlTreeNode<item_type>* node_ptr = this;
-  while (node_ptr) {
-    if (item < node_ptr->item()) {
-      // Insert item in left subtree.
-      if (node_ptr->left()) {
-        // Keep traversing tree to the left.
-        node_ptr = node_ptr->left();
-      } else {
-        // Create new left child.
-        AvlTreeNode<item_type>* new_node =
-            new AvlTreeNode<item_type>(item, node_ptr);
-        assert (new_node);
-        node_ptr->left(new_node);
-        break;
-      }
+/** Finds the path to the maximum depth node in the subtree starting from the
+ * current node. NOTE: Returned linkedlist MUST be destroyed by calling
+ * function otherwise memory leak occurs.
+ */
+template <class item_type> LinkedList<AvlTreeNode<item_type>*>*
+    AvlTreeNode<item_type>::findMaxDepthPath() {
+  LinkedList<AvlTreeNode<item_type>*>* left = NULL;
+  LinkedList<AvlTreeNode<item_type>*>* right = NULL;
+  if (_left_ptr && _right_ptr) {
+    // Both children present. Choose which path is longer.
+    left = _left_ptr->findMaxDepthPath();
+    right = _right_ptr->findMaxDepthPath();
+    if (left->size() < right->size()) {
+      // Right path is longer.
+      right->push_back(this);
+      // Destroy linkedlist belonging to shorter path.
+      delete left;
+      return right;
     } else {
-      // Insert item in right subtree
-      if (node_ptr->right()) {
-        // Keep traversing tree to the right.
-        node_ptr = node_ptr->right();
-      } else {
-        // Create new right child.
-        AvlTreeNode<item_type>* new_node =
-            new AvlTreeNode<item_type>(item, node_ptr);
-        assert (new_node);
-        node_ptr->right(new_node);
-        break;
-      }
+      // Left path is longer (or equal).
+      left->push_back(this);
+      // Destroy linkedlist belonging to shorter path.
+      delete right;
+      return left;
     }
+  } else if (_left_ptr) {
+    // We have a linkedlist coming from the left pointer.
+    left = _left_ptr->findMaxDepthPath();
+    left->push_back(this);
+    return left;
+  } else if (_right_ptr) {
+    // We have a linkedlist coming from the right pointer.
+    right = _right_ptr->findMaxDepthPath();
+    right->push_back(this);
+    return right;
+  } else {
+    // Node is a leaf. Create new LinkedList.
+    LinkedList<AvlTreeNode<item_type>*>* linkedlist =
+        new LinkedList<AvlTreeNode<item_type>*>();
+    linkedlist->push_back(this);
+    return linkedlist;
   }
 }
 
@@ -203,7 +217,8 @@ template <class item_type> void AvlTreeNode<item_type>::right(
 }
 
 /** String representation of the tree. */
-template<class item_type> std::string AvlTreeNode<item_type>::to_str() {
+template<class item_type> const std::string
+    AvlTreeNode<item_type>::to_str() const {
   std::string out;
   /* Note that this is not actually an in-order walk of the tree, but it
    * generates output as if it were, due to the 90 degree rotation of the tree
@@ -213,7 +228,7 @@ template<class item_type> std::string AvlTreeNode<item_type>::to_str() {
     out << _right_ptr->to_str();
   }
   int depth;
-  AvlTreeNode<item_type>* node_ptr = this;
+  const AvlTreeNode<item_type>* node_ptr = this;
   for (depth = 0; node_ptr->_parent_ptr; ++depth) {
     node_ptr = node_ptr->_parent_ptr;
     out << ".";

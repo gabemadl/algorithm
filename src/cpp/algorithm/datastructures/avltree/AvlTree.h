@@ -11,7 +11,6 @@
 #define ALGORITHM_AVLTREE
 
 #include <iostream>
-#include "algorithm/datastructures/binarytree/BinaryTree.h"
 #include "AvlTreeNode.h"
 
 namespace algorithm {
@@ -38,7 +37,7 @@ template<class item_type> class AvlTree {
   /** Returns the size of the tree. */
   const unsigned int size() const;
   /** String representation of the tree. */
-  std::string to_str();
+  const std::string to_str() const;
  protected:
   /** Pointer to the root of the AVL tree. */
   AvlTreeNode<item_type>* _root_ptr;
@@ -46,10 +45,18 @@ template<class item_type> class AvlTree {
   unsigned int _size;
   friend class TestAvlTree;
  private:
+  /** Balances the AVL tree starting from the parameter node. */
+  void balance(AvlTreeNode<item_type>* node_ptr);
+  /** Balances the AVL tree to the left starting from the parameter node. */
+  void balanceLeft(AvlTreeNode<item_type>* node_ptr);
+  /** Balances the AVL tree to the right starting from the parameter node. */
+  void balanceRight(AvlTreeNode<item_type>* node_ptr);
   /** Deletes a non-root node from the binary tree. */
   void eraseChild(AvlTreeNode<item_type>* node_ptr);
   /** Deletes the root node from the binary tree. */
   void eraseRoot();
+  /** Find the deepest path in the subtree and invoke balancing recursively. */
+  void findBalance(AvlTreeNode<item_type>* node_ptr);
 };
 
 } // namespace
