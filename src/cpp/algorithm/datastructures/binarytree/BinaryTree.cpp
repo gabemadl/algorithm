@@ -86,7 +86,6 @@ template<class item_type> void BinaryTree<item_type>::eraseChild(
   // Check whether current node is left or right subtree.
   if (parent_ptr->left() == node_ptr) {
     // Current node is a left subtree.
-    assert(node_ptr->item() < parent_ptr->item());
     if (left_ptr) {
       // Replace node_ptr with left_ptr.
       parent_ptr->left(left_ptr);
@@ -123,7 +122,6 @@ template<class item_type> void BinaryTree<item_type>::eraseChild(
   } else {
     // Current node is a right subtree.
     assert(parent_ptr->right() == node_ptr);
-    assert(parent_ptr->item() <= node_ptr->item());
     if (right_ptr) {
       // Replace node_ptr with right_ptr.
       parent_ptr->right(right_ptr);
