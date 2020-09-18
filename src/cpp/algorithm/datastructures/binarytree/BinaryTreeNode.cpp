@@ -45,7 +45,7 @@ template<class item_type> BinaryTreeNode<item_type>::BinaryTreeNode(
       _right_ptr(binarytreenode.right()) { }
 
 /** Destructor. */
-template <class item_type> BinaryTreeNode<item_type>::~BinaryTreeNode() {
+template<class item_type> BinaryTreeNode<item_type>::~BinaryTreeNode() {
   // Delete children.
   if (_left_ptr) {
     delete _left_ptr;
@@ -90,36 +90,36 @@ template<class item_type> const BinaryTreeNode<item_type>*
 }
 
 /** Returns the item of the node. */
-template <class item_type> item_type BinaryTreeNode<item_type>::item() {
+template<class item_type> item_type BinaryTreeNode<item_type>::item() {
   return _item;
 }
 
 /** Returns the item of the node. */
-template <class item_type> const item_type
+template<class item_type> const item_type
     BinaryTreeNode<item_type>::item() const {
   return _item;
 }
 
 /** Sets the item of the node. */
-template <class item_type> void
+template<class item_type> void
     BinaryTreeNode<item_type>::item(item_type item) {
   _item = item;
 }
 
 /** Gets pointer to the left child of the node. */
-template <class item_type> BinaryTreeNode<item_type>*
+template<class item_type> BinaryTreeNode<item_type>*
     BinaryTreeNode<item_type>::left() {
   return _left_ptr;
 }
 
 /** Gets const pointer to the left child of the node. */
-template <class item_type> const BinaryTreeNode<item_type>*
+template<class item_type> const BinaryTreeNode<item_type>*
     BinaryTreeNode<item_type>::left() const {
   return _left_ptr;
 }
 
 /** Sets the pointer pointing to the left child of the node. */
-template <class item_type> void BinaryTreeNode<item_type>::left(
+template<class item_type> void BinaryTreeNode<item_type>::left(
     BinaryTreeNode<item_type>* left_ptr) {
   _left_ptr = left_ptr;
 }
@@ -135,37 +135,37 @@ template<class item_type> BinaryTreeNode<item_type>&
 }
 
 /** Gets pointer to the parent of the node. */
-template <class item_type> BinaryTreeNode<item_type>*
+template<class item_type> BinaryTreeNode<item_type>*
     BinaryTreeNode<item_type>::parent() {
   return _parent_ptr;
 }
 
 /** Gets const pointer to the parent of the node. */
-template <class item_type> const BinaryTreeNode<item_type>*
+template<class item_type> const BinaryTreeNode<item_type>*
     BinaryTreeNode<item_type>::parent() const {
   return _parent_ptr;
 }
 
 /** Sets the pointer pointing to the left child of the node. */
-template <class item_type> void BinaryTreeNode<item_type>::parent(
+template<class item_type> void BinaryTreeNode<item_type>::parent(
     BinaryTreeNode<item_type>* parent_ptr) {
   _parent_ptr = parent_ptr;
 }
 
 /** Gets pointer to the right child of the node. */
-template <class item_type> BinaryTreeNode<item_type>*
+template<class item_type> BinaryTreeNode<item_type>*
     BinaryTreeNode<item_type>::right() {
   return _right_ptr;
 }
 
 /** Gets const pointer to the right child of the node. */
-template <class item_type> const BinaryTreeNode<item_type>*
+template<class item_type> const BinaryTreeNode<item_type>*
     BinaryTreeNode<item_type>::right() const {
   return _right_ptr;
 }
 
 /** Sets the pointer pointing to the right child of the node. */
-template <class item_type> void BinaryTreeNode<item_type>::right(
+template<class item_type> void BinaryTreeNode<item_type>::right(
     BinaryTreeNode<item_type>* right_ptr) {
   _right_ptr = right_ptr;
 }

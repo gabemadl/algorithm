@@ -39,7 +39,7 @@ template<class item_type> bool
   return (_node_ptr == *iter) ? true : false;
 }
 
-template <class item_type> bool
+template<class item_type> bool
     Iterator <item_type>::operator== (Const_Iterator <item_type>& iter) {
   return (_node_ptr == *iter) ? true : false;
 }
@@ -54,7 +54,7 @@ template<class item_type> bool
   return (_node_ptr == *iter) ? false : true;
 }
 
-template <class item_type> bool
+template<class item_type> bool
     Iterator <item_type>::operator!= (Const_Iterator <item_type>& iter) {
   return (_node_ptr == *iter) ? false : true;
 }

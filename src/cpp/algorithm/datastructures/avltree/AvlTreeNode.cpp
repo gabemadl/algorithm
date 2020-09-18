@@ -18,7 +18,7 @@
 namespace algorithm {
 
 /** Constructor. */
-template <class item_type> AvlTreeNode<item_type>::AvlTreeNode(
+template<class item_type> AvlTreeNode<item_type>::AvlTreeNode(
     item_type item, AvlTreeNode<item_type>* parent_ptr)
 :
           _item(item),
@@ -27,7 +27,7 @@ template <class item_type> AvlTreeNode<item_type>::AvlTreeNode(
           _right_ptr(NULL) { }
 
 /** Copy constructor. */
-template <class item_type> AvlTreeNode<item_type>::AvlTreeNode(
+template<class item_type> AvlTreeNode<item_type>::AvlTreeNode(
     AvlTreeNode<item_type> &avltreenode)
 :
           _item(avltreenode._item),
@@ -36,10 +36,10 @@ template <class item_type> AvlTreeNode<item_type>::AvlTreeNode(
           _right_ptr(avltreenode._right_ptr) { }
 
 /** Destructor. */
-template <class item_type> AvlTreeNode<item_type>::~AvlTreeNode() { }
+template<class item_type> AvlTreeNode<item_type>::~AvlTreeNode() { }
 
 /** Returns the depth of the subtree starting with the current node. */
-template <class item_type> const unsigned int
+template<class item_type> const unsigned int
     AvlTreeNode<item_type>::depth() const {
   unsigned int left = 0, right = 0;
   if (_left_ptr) {
@@ -58,7 +58,7 @@ template <class item_type> const unsigned int
 }
 
 /** Finds an item in the tree starting from the current node. */
-template <class item_type> AvlTreeNode<item_type>*
+template<class item_type> AvlTreeNode<item_type>*
     AvlTreeNode<item_type>::find(item_type item) {
   // Non-recursive implementation for better performance.
   AvlTreeNode<item_type>* node_ptr = this;
@@ -75,7 +75,7 @@ template <class item_type> AvlTreeNode<item_type>*
 }
 
 /** Finds an item in the tree starting from the current node. */
-template <class item_type> const AvlTreeNode<item_type>*
+template<class item_type> const AvlTreeNode<item_type>*
     AvlTreeNode<item_type>::find(item_type item) const {
   // Non-recursive implementation for better performance.
   const AvlTreeNode<item_type>* node_ptr = this;
@@ -95,7 +95,7 @@ template <class item_type> const AvlTreeNode<item_type>*
  * current node. NOTE: Returned linkedlist MUST be destroyed by calling
  * function otherwise memory leak occurs.
  */
-template <class item_type> LinkedList<AvlTreeNode<item_type>*>*
+template<class item_type> LinkedList<AvlTreeNode<item_type>*>*
     AvlTreeNode<item_type>::findMaxDepthPath() {
   LinkedList<AvlTreeNode<item_type>*>* left = NULL;
   LinkedList<AvlTreeNode<item_type>*>* right = NULL;
@@ -136,36 +136,36 @@ template <class item_type> LinkedList<AvlTreeNode<item_type>*>*
 }
 
 /** Returns the item of the node. */
-template <class item_type> item_type AvlTreeNode<item_type>::item() {
+template<class item_type> item_type AvlTreeNode<item_type>::item() {
   return _item;
 }
 
 /** Returns the item of the node. */
-template <class item_type> const item_type
+template<class item_type> const item_type
     AvlTreeNode<item_type>::item() const {
   return _item;
 }
 
 /** Sets the item of the node. */
-template <class item_type> void
+template<class item_type> void
     AvlTreeNode<item_type>::item(item_type item) {
   _item = item;
 }
 
 /** Gets pointer to the left child of the node. */
-template <class item_type> AvlTreeNode<item_type>*
+template<class item_type> AvlTreeNode<item_type>*
 AvlTreeNode<item_type>::left() {
   return _left_ptr;
 }
 
 /** Gets const pointer to the left child of the node. */
-template <class item_type> const AvlTreeNode<item_type>*
+template<class item_type> const AvlTreeNode<item_type>*
 AvlTreeNode<item_type>::left() const {
   return _left_ptr;
 }
 
 /** Sets the pointer pointing to the left child of the node. */
-template <class item_type> void AvlTreeNode<item_type>::left(
+template<class item_type> void AvlTreeNode<item_type>::left(
     AvlTreeNode<item_type>* left_ptr) {
   _left_ptr = left_ptr;
 }
@@ -181,37 +181,37 @@ template<class item_type> AvlTreeNode<item_type>&
 }
 
 /** Gets pointer to the parent of the node. */
-template <class item_type> AvlTreeNode<item_type>*
+template<class item_type> AvlTreeNode<item_type>*
     AvlTreeNode<item_type>::parent() {
   return _parent_ptr;
 }
 
 /** Gets const pointer to the parent of the node. */
-template <class item_type> const AvlTreeNode<item_type>*
+template<class item_type> const AvlTreeNode<item_type>*
     AvlTreeNode<item_type>::parent() const {
   return _parent_ptr;
 }
 
 /** Sets the pointer pointing to the left child of the node. */
-template <class item_type> void AvlTreeNode<item_type>::parent(
+template<class item_type> void AvlTreeNode<item_type>::parent(
     AvlTreeNode<item_type>* parent_ptr) {
   _parent_ptr = parent_ptr;
 }
 
 /** Gets pointer to the right child of the node. */
-template <class item_type> AvlTreeNode<item_type>*
+template<class item_type> AvlTreeNode<item_type>*
     AvlTreeNode<item_type>::right() {
   return _right_ptr;
 }
 
 /** Gets const pointer to the right child of the node. */
-template <class item_type> const AvlTreeNode<item_type>*
+template<class item_type> const AvlTreeNode<item_type>*
     AvlTreeNode<item_type>::right() const {
   return _right_ptr;
 }
 
 /** Sets the pointer pointing to the right child of the node. */
-template <class item_type> void AvlTreeNode<item_type>::right(
+template<class item_type> void AvlTreeNode<item_type>::right(
     AvlTreeNode<item_type>* right_ptr) {
   _right_ptr = right_ptr;
 }

@@ -288,4 +288,3 @@ template<class item_type> const std::string
 } //namespace
 
 #endif
-
