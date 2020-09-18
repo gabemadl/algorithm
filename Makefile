@@ -22,7 +22,8 @@ all: common datastructures test
 	$(CXX) -pthread -o $(BIN)/runtests $(BIN)/Test.o $(BIN)/TestAvlTree.o \
 	$(BIN)/TestBinaryTree.o $(BIN)/TestIterator.o $(BIN)/TestLinkedList.o \
 	$(BIN)/Common.o $(BIN)/AvlTree.o $(BIN)/BinaryTree.o \
-	$(BIN)/ConstIterator.o $(BIN)/LinkedList.o $(BIN)/Iterator.o
+	$(BIN)/ConstIterator.o $(BIN)/LinkedList.o $(BIN)/Iterator.o \
+	$(BIN)/RedBlackTree.o
 
 common: Common.o
 
@@ -33,7 +34,8 @@ Common.o: $(ALGORITHM)/Common.cpp \
 	-c $(ALGORITHM)/Common.cpp -o \
 	$(BIN)/Common.o
 
-datastructures: AvlTree.o BinaryTree.o ConstIterator.o Iterator.o LinkedList.o
+datastructures: AvlTree.o BinaryTree.o ConstIterator.o Iterator.o LinkedList.o \
+    RedBlackTree.o 
 
 AvlTree.o: $(DATASTRUCTURES)/avltree/AvlTree.cpp \
     $(DATASTRUCTURES)/avltree/AvlTree.h
@@ -69,6 +71,13 @@ LinkedList.o: $(DATASTRUCTURES)/linkedlist/LinkedList.cpp \
 	$(CXX) $(CPPFLAGS) $(CPPINCLUDE) \
 	-c $(DATASTRUCTURES)/linkedlist/LinkedList.cpp -o \
 	$(BIN)/LinkedList.o
+
+RedBlackTree.o: $(DATASTRUCTURES)/redblacktree/RedBlackTree.cpp \
+    $(DATASTRUCTURES)/redblacktree/RedBlackTree.h
+	mkdir -p $(BIN)
+	$(CXX) $(CPPFLAGS) $(CPPINCLUDE) \
+	-c $(DATASTRUCTURES)/redblacktree/RedBlackTree.cpp -o \
+	$(BIN)/RedBlackTree.o
 
 test: TestAvlTree.o TestBinaryTree.o TestIterator.o TestLinkedList.o Test.o
 
@@ -112,6 +121,7 @@ clean:
 	rm $(BIN)/ConstIterator.o
 	rm $(BIN)/Iterator.o
 	rm $(BIN)/LinkedList.o
+	rm $(BIN)/RedBlackTree.o
 	rm $(BIN)/TestAvlTree.o
 	rm $(BIN)/TestBinaryTree.o
 	rm $(BIN)/TestIterator.o

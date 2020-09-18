@@ -1,0 +1,290 @@
+/** @file RedBlackTree.cpp
+ * @author Gabor Madl
+ * @date Created 09/2020
+ * @brief Red black tree template class implementation.
+ *
+ * https://github.com/gabemadl/algorithm
+ * Copyright (c) 2020 Gabor Madl, All Rights Reserved.
+ */
+
+#ifndef ALGORITHM_BINARYTREE_CPP
+#define ALGORITHM_BINARYTREE_CPP
+
+#include "RedBlackTree.h"
+
+#include "algorithm/Common.h"
+#include "RedBlackTreeNode.cpp"
+
+namespace algorithm {
+
+/** Constructor. */
+template<class item_type> RedBlackTree<item_type>::RedBlackTree()
+  :
+      _root_ptr(NULL),
+      _size(0) { }
+
+/** Destructor. */
+template<class item_type> RedBlackTree<item_type>::~RedBlackTree() {
+  if (_root_ptr) {
+    delete _root_ptr;
+  }
+}
+
+/** Clears the tree. */
+template<class item_type> void RedBlackTree<item_type>::clear() {
+  if (_root_ptr) {
+    delete _root_ptr;
+    _root_ptr = NULL;
+    _size = 0;
+  }
+}
+
+/** Checks whether the tree is empty. */
+template<class item_type> const bool RedBlackTree<item_type>::empty() const {
+  return (0 == _size) ? true : false;
+}
+
+/** Deletes a node from the binary tree. */
+template<class item_type> void RedBlackTree<item_type>::erase(
+    RedBlackTreeNode<item_type>* node_ptr) {
+  if (NULL == node_ptr) {
+    return;
+  }
+  if (_root_ptr == node_ptr) {
+    eraseRoot();
+  } else {
+    eraseChild(node_ptr);
+  }
+  --_size;
+}
+
+/** Deletes a non-root node from the binary tree. */
+template<class item_type> void RedBlackTree<item_type>::eraseChild(
+    RedBlackTreeNode<item_type>* node_ptr) {
+  if (NULL == node_ptr) {
+    return;
+  }
+  RedBlackTreeNode<item_type>* parent_ptr = node_ptr->parent();
+  // Node must have parent since not root.
+  assert(parent_ptr);
+  RedBlackTreeNode<item_type>* left_ptr = node_ptr->left();
+  RedBlackTreeNode<item_type>* right_ptr = node_ptr->right();
+  // Children of left subtree.
+  RedBlackTreeNode<item_type>* left_a_ptr =
+      (left_ptr) ? left_ptr->left() : NULL;
+  RedBlackTreeNode<item_type>* left_b_ptr =
+      (left_ptr) ? left_ptr->right() : NULL;
+  // Children of right subtree.
+  RedBlackTreeNode<item_type>* right_c_ptr =
+      (right_ptr) ? right_ptr->left() : NULL;
+  RedBlackTreeNode<item_type>* right_d_ptr =
+      (right_ptr) ? right_ptr->right() : NULL;
+  // Delete node_ptr.
+  node_ptr->left(NULL);
+  node_ptr->right(NULL);
+  delete node_ptr;
+  // Check whether current node is left or right subtree.
+  if (parent_ptr->left() == node_ptr) {
+    // Current node is a left subtree.
+    if (left_ptr) {
+      // Replace node_ptr with left_ptr.
+      parent_ptr->left(left_ptr);
+      left_ptr->parent(parent_ptr);
+      if (right_ptr) {
+        left_ptr->right(right_ptr);
+        right_ptr->parent(left_ptr);
+        if (left_b_ptr) {
+          if (right_c_ptr) {
+            // Find leftmost child of right_c_ptr.
+            node_ptr = right_c_ptr;
+            while(node_ptr->left()) {
+              node_ptr = node_ptr->left();
+            }
+            node_ptr->left(left_b_ptr);
+            left_b_ptr->parent(node_ptr);
+          } else {
+            // No right C subtree.
+            right_ptr->left(left_b_ptr);
+            left_b_ptr->parent(right_ptr);
+          }
+        }
+      }
+      // else no right subtree. Done.
+    } else if (right_ptr) {
+      // No left subtree.
+      // Replace node_ptr with right_ptr.
+      parent_ptr->left(right_ptr);
+      right_ptr->parent(parent_ptr);
+    } else {
+      // node_ptr has no children.
+      parent_ptr->left(NULL);
+    }
+  } else {
+    // Current node is a right subtree.
+    assert(parent_ptr->right() == node_ptr);
+    if (right_ptr) {
+      // Replace node_ptr with right_ptr.
+      parent_ptr->right(right_ptr);
+      right_ptr->parent(parent_ptr);
+      if (left_ptr) {
+        right_ptr->left(left_ptr);
+        left_ptr->parent(right_ptr);
+        if (right_c_ptr) {
+          if (left_b_ptr) {
+            // Find rightmost child of left_b_ptr.
+            node_ptr = left_b_ptr;
+            while(node_ptr->right()) {
+              node_ptr = node_ptr->right();
+            }
+            node_ptr->right(right_c_ptr);
+            right_c_ptr->parent(node_ptr);
+          } else {
+            // No left B subtree.
+            left_ptr->right(right_c_ptr);
+            right_c_ptr->parent(left_ptr);
+          }
+        }
+      }
+      // else no left subtree. Done.
+    } else if (left_ptr) {
+      // No right subtree.
+      // Replace node_ptr with left_ptr.
+      parent_ptr->right(left_ptr);
+      left_ptr->parent(parent_ptr);
+    } else {
+      // node_ptr has no children.
+      parent_ptr->right(NULL);
+    }
+  }
+}
+
+/** Deletes the root node from the binary tree. */
+template<class item_type> void RedBlackTree<item_type>::eraseRoot() {
+  if (NULL == _root_ptr) {
+    return;
+  }
+  RedBlackTreeNode<item_type>* left_ptr = _root_ptr->left();
+  RedBlackTreeNode<item_type>* right_ptr = _root_ptr->right();
+  // Children of left subtree.
+  RedBlackTreeNode<item_type>* left_a_ptr =
+      (left_ptr) ? left_ptr->left() : NULL;
+  RedBlackTreeNode<item_type>* left_b_ptr =
+      (left_ptr) ? left_ptr->right() : NULL;
+  // Children of right subtree.
+  RedBlackTreeNode<item_type>* right_c_ptr =
+      (right_ptr) ? right_ptr->left() : NULL;
+  RedBlackTreeNode<item_type>* right_d_ptr =
+      (right_ptr) ? right_ptr->right() : NULL;
+  // Delete _root_ptr.
+  _root_ptr->left(NULL);
+  _root_ptr->right(NULL);
+  delete _root_ptr;
+  if (left_ptr) {
+    // Setting left_ptr as new root of the tree.
+    left_ptr->parent(NULL);
+    _root_ptr = left_ptr;
+    if (right_ptr) {
+      left_ptr->right(right_ptr);
+      right_ptr->parent(left_ptr);
+      if (left_b_ptr) {
+        if (right_c_ptr) {
+          // Find leftmost child of right_c_ptr.
+          RedBlackTreeNode<item_type>* node_ptr = right_c_ptr;
+          while(node_ptr->left()) {
+            node_ptr=node_ptr->left();
+          }
+          node_ptr->left(left_b_ptr);
+          left_b_ptr->parent(node_ptr);
+        } else {
+          // No right C subtree.
+          right_ptr->left(left_b_ptr);
+          left_b_ptr->parent(right_ptr);
+        }
+      }
+    }
+  } else if (right_ptr) {
+    // No left subtree.
+    // Setting right_ptr as new root of the tree.
+    right_ptr->parent(NULL);
+    _root_ptr = right_ptr;
+  } else {
+    // _root_ptr has no children.
+    _root_ptr = NULL;
+  }
+}
+
+/** Finds an item in the tree. */
+template<class item_type> RedBlackTreeNode<item_type>*
+    RedBlackTree<item_type>::find(item_type item) {
+  return _root_ptr->find(item);
+}
+
+/** Finds an item in the tree. */
+template<class item_type> const RedBlackTreeNode<item_type>*
+    RedBlackTree<item_type>::find(item_type item) const {
+  return _root_ptr->find(item);
+}
+
+/** Inserts an item in the tree. */
+template<class item_type> void RedBlackTree<item_type>::insert(item_type item) {
+  if (_root_ptr) {
+    // Insert non-root node. Non-recursive implementation for better
+    // performance.
+    RedBlackTreeNode<item_type>* node_ptr = _root_ptr;
+    while (node_ptr) {
+      if (item < node_ptr->item()) {
+        // Insert item in left subtree.
+        if (node_ptr->left()) {
+          // Keep traversing tree to the left.
+          node_ptr = node_ptr->left();
+        } else {
+          // Create new left child.
+          RedBlackTreeNode<item_type>* new_node =
+              new RedBlackTreeNode<item_type>(item, node_ptr);
+          assert (new_node);
+          node_ptr->left(new_node);
+          break;
+        }
+      } else {
+        // Insert item in right subtree
+        if (node_ptr->right()) {
+          // Keep traversing tree to the right.
+          node_ptr = node_ptr->right();
+        } else {
+          // Create new right child.
+          RedBlackTreeNode<item_type>* new_node =
+              new RedBlackTreeNode<item_type>(item, node_ptr);
+          assert (new_node);
+          node_ptr->right(new_node);
+          break;
+        }
+      }
+    }
+  } else {
+    // Create new root.
+    _root_ptr = new RedBlackTreeNode<item_type>(item, NULL);
+  }
+  ++_size;
+}
+
+/** Returns the size of the tree. */
+template<class item_type> const unsigned int
+    RedBlackTree<item_type>::size() const {
+  return _size;
+}
+
+/** String representation of the tree. */
+template<class item_type> const std::string
+    RedBlackTree<item_type>::to_str() const {
+  std::string out;
+  if (_root_ptr) {
+    out << _root_ptr->to_str();
+  } else {
+    out << "Empty tree.\n";
+  }
+  return out;
+}
+
+} //namespace
+
+#endif
