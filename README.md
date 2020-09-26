@@ -1,2 +1,2 @@
 # algorithm
-Implementation of common data structures and algorithms in C++
+Efficient open-source implementation of C++ data structures and algorithms
